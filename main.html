@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Town Trip Map</title>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 	
+		<style type="text/css">
+canvas { border: 1px solid black; }
+		</style>
+		<script type="text/javascript">
+
+const homeColor = 'rgb(255, 0, 0)';
+const visitedColor = 'rgb(255, 255, 0)';
+const nonVisitedColor = 'rgb(150, 150, 150)';
+const textColor = 'rgb(0, 0, 0)';
+
+function drawVisited(ctx, cx, cy, name) {
+	ctx.fillStyle = 'rgb(0, 0, 0)';
+	ctx.fillRect(cx+2, cy+2, 96, 96);
+	ctx.fillStyle = visitedColor;
+	ctx.fillRect(cx+5, cy+5, 90, 90);
+	ctx.fillStyle = textColor;
+	ctx.font = '15px serif';
+	ctx.fillText(name, cx+10, cy+30);
+}
+
+function drawNonVisited(ctx, cx, cy, name) {
+	ctx.fillStyle = 'rgb(0, 0, 0)';
+	ctx.fillRect(cx+2, cy+2, 96, 96);
+	ctx.fillStyle = nonVisitedColor;
+	ctx.fillRect(cx+5, cy+5, 90, 90);
+	ctx.fillStyle = textColor;
+	ctx.font = '15px serif';
+	ctx.fillText(name, cx+10, cy+30);
+}
+
+function drawHome(ctx, cx, cy, name) {
+	ctx.fillStyle = 'rgb(0, 0, 0)';
+	ctx.fillRect(cx+2, cy+2, 96, 96);
+	ctx.fillStyle = homeColor;
+	ctx.fillRect(cx+5, cy+5, 90, 90);
+	ctx.fillStyle = textColor;
+	ctx.font = '15px serif';
+	ctx.fillText(name, cx+10, cy+30);
+}
+
+function drawTown(ctx, cx, cy, name, color) {
+
+	ctx.fillStyle = 'rgb(0, 0, 0)';
+	ctx.fillRect(cx+2, cy+2, 96, 96);
+	ctx.fillStyle = color;
+	ctx.fillRect(cx+5, cy+5, 90, 90);
+	ctx.fillStyle = textColor;
+	ctx.font = '15px serif';
+	ctx.fillText(name, cx+10, cy+30);
+}
+
+function drawMinhang(ctx, cx, cy, name) {
+	drawTown(ctx, cx, cy, name, 'rgb(255,200,200)');
+}
+
+function drawNonVisited(ctx, cx, cy, name) {
+	drawTown(ctx, cx, cy, name, 'rgb(230,230,230)');
+}
+
+function drawFengxian(ctx, cx, cy, name) {
+	drawTown(ctx, cx, cy, name, 'rgb(100,255,100)');
+}
+
+function drawSongjiang(ctx, cx, cy, name) {
+	drawTown(ctx, cx, cy, name, 'rgb(255,215,0)');
+}
+
+function drawJinshan(ctx, cx, cy, name) {
+	drawTown(ctx, cx, cy, name, 'rgb(150,100,100)');
+}
+
+function drawQingpu(ctx, cx, cy, name) {
+	drawTown(ctx, cx, cy, name, 'rgb(175,0,175)');
+}
+
+function drawJiading(ctx, cx, cy, name) {
+	drawTown(ctx, cx, cy, name, 'rgb(0,150,255)');
+}
+
+function drawPudong(ctx, cx, cy, name) {
+	drawTown(ctx, cx, cy, name, 'rgb(180,255,255)');
+}
+
+function draw() {
+
+
+	var canvas = document.getElementById('map-canvas');
+	if (canvas.getContext) {
+		var ctx = canvas.getContext('2d');
+
+		// 黄浦江 + 长江
+		ctx.fillStyle = 'rgb(0, 0, 255)';
+		ctx.beginPath();
+		ctx.moveTo(0, 1100);
+		ctx.lineTo(1000, 1100);
+		ctx.lineTo(1000, 900);
+		ctx.lineTo(1050, 900);
+		ctx.lineTo(1050, 800);
+		ctx.lineTo(1200, 800);
+		ctx.lineTo(1200, 600);
+		ctx.lineTo(1400, 600);
+		ctx.lineTo(1400, 100);
+		ctx.lineTo(900, 100);
+		ctx.lineTo(900, 0);
+		ctx.lineTo(950, 0);
+		ctx.lineTo(950, 50);
+		ctx.lineTo(1450, 50);
+		ctx.lineTo(1450, 250);
+		ctx.lineTo(1800, 250);
+		ctx.lineTo(1800, 300);
+		ctx.lineTo(1450, 300);
+		ctx.lineTo(1450, 650);
+		ctx.lineTo(1250, 650);
+		ctx.lineTo(1250, 850);
+		ctx.lineTo(1100, 850);
+		ctx.lineTo(1100, 950);
+		ctx.lineTo(1050, 950);
+		ctx.lineTo(1050, 1150);
+		ctx.lineTo(0, 1150);
+		ctx.fill();
+
+		// home
+		const homeX = 800;
+		const homeY = 1000;
+		drawHome(ctx, homeX, homeY, '江川路街道');
+
+		// border label
+		ctx.fillText("闵行区", homeX+200, homeY-410);
+		ctx.fillText("嘉定区", homeX+200, homeY-430);
+
+		ctx.fillText("嘉定区", 0, 495);
+		ctx.fillText("青浦区", 0, 515);
+
+		ctx.fillText("青浦区", 0, 795);
+		ctx.fillText("松江区", 0, 815);
+
+		ctx.fillText("松江区", 0, 1245);
+		ctx.fillText("金山区", 0, 1265);
+
+		ctx.fillText("闵行区", 1150, 1120);
+		ctx.fillText("奉贤区", 1150, 1140);
+
+		ctx.fillText("浦东新区", 1203, 1100);
+
+		ctx.fillText("金山区", 777, 1745);
+		ctx.fillText("奉贤区", 827, 1745);
+
+		ctx.fillText("奉贤区", 1150, 1745);
+		ctx.fillText("浦东新区", 1203, 1745);
+
+		ctx.fillText("宝山区", 1200, 200);
+		ctx.font = '30px serif';
+		ctx.fillText("市区", 1200, 550);
+		ctx.font = '15px serif';
+		ctx.fillText("崇明区", 1500, 200);
+
+		// 闵行区
+		drawNonVisited(ctx, homeX, homeY-100, '颛桥镇');
+		drawNonVisited(ctx, homeX-100, homeY, '马桥镇');
+		drawNonVisited(ctx, homeX-100, homeY-150, '莘庄工业区');
+		drawMinhang(ctx, homeX+100, homeY-50, '吴泾镇');
+		drawMinhang(ctx, homeX+250, homeY-50, '浦江镇');
+		drawMinhang(ctx, homeX, homeY-200, '莘庄镇');
+		drawNonVisited(ctx, homeX, homeY-300, '七宝镇');
+		drawMinhang(ctx, homeX, homeY-400, '新虹街道');
+		drawNonVisited(ctx, homeX-100, homeY-400, '华漕镇');
+		drawNonVisited(ctx, homeX+100, homeY-400, '虹桥镇');
+		drawNonVisited(ctx, homeX+100, homeY-300, '古美路街道');
+		drawMinhang(ctx, homeX+100, homeY-200, '梅陇镇');
+		drawNonVisited(ctx, homeX+300, homeY-150, '浦锦街道');
+
+		// 奉贤区
+		drawFengxian(ctx, homeX, homeY+150, '西渡街道');
+		drawNonVisited(ctx, homeX+100, homeY+150, '金汇镇');
+		drawFengxian(ctx, homeX-100, homeY+150, '庄行镇');
+		drawNonVisited(ctx, homeX, homeY+250, '奉浦街道');
+		drawFengxian(ctx, homeX, homeY+350, '南桥镇');
+		drawNonVisited(ctx, homeX+100, homeY+350, '青村镇');
+		drawNonVisited(ctx, homeX+200, homeY+350, '奉城镇');
+		drawNonVisited(ctx, homeX+300, homeY+350, '四团镇');
+		drawFengxian(ctx, homeX+50, homeY+450, '海湾镇');
+		drawNonVisited(ctx, homeX-100, homeY+350, '柘林镇');
+
+		// 松江区
+		drawSongjiang(ctx, homeX-200, homeY+150, '叶榭镇');
+		drawNonVisited(ctx, homeX-300, homeY+150, '泖港镇');
+		drawNonVisited(ctx, homeX-400, homeY+150, '新浜镇');
+		drawSongjiang(ctx, homeX-200, homeY, '车墩镇');
+		drawNonVisited(ctx, homeX-500, homeY, '永丰街道');
+		drawNonVisited(ctx, homeX-600, homeY, '石湖荡镇');
+		drawNonVisited(ctx, homeX-200, homeY-150, '新桥镇');
+		drawNonVisited(ctx, homeX-300, homeY-100, '中山街道');
+		drawNonVisited(ctx, homeX-500, homeY-100, '方松街道');
+		drawNonVisited(ctx, homeX-400, homeY-50, '岳阳街道');
+		drawNonVisited(ctx, homeX-200, homeY-250, '九亭镇');
+		drawNonVisited(ctx, homeX-300, homeY-300, '泗泾镇');
+		drawNonVisited(ctx, homeX-300, homeY-200, '洞泾镇');
+		drawNonVisited(ctx, homeX-400, homeY-300, '佘山镇');
+
+		// 金山区
+		drawNonVisited(ctx, homeX-200, homeY+250, '亭林镇');
+		drawJinshan(ctx, homeX-200, homeY+350, '朱行镇');
+		drawJinshan(ctx, homeX-300, homeY+350, '张堰镇');
+		drawJinshan(ctx, homeX-400, homeY+400, '廊下镇');
+		drawNonVisited(ctx, homeX-500, homeY+350, '吕巷镇');
+		drawNonVisited(ctx, homeX-400, homeY+250, '朱泾镇');
+		drawNonVisited(ctx, homeX-500, homeY+250, '枫泾镇');
+		drawNonVisited(ctx, homeX-350, homeY+500, '金山卫镇');
+		drawNonVisited(ctx, homeX-250, homeY+450, '山阳镇');
+		drawNonVisited(ctx, homeX-150, homeY+450, '漕泾镇');
+		drawJinshan(ctx, homeX-300, homeY+600, '石化街道');
+
+		// 青浦区
+		drawNonVisited(ctx, homeX-200, homeY-350, '徐泾镇');
+		drawNonVisited(ctx, homeX-200, homeY-450, '华新镇');
+		drawNonVisited(ctx, homeX-300, homeY-400, '重固镇');
+		drawNonVisited(ctx, homeX-300, homeY-500, '赵巷镇');
+		drawNonVisited(ctx, homeX-400, homeY-400, '夏阳街道');
+		drawNonVisited(ctx, homeX-500, homeY-400, '盈浦街道');
+		drawNonVisited(ctx, homeX-400, homeY-500, '香花桥街道');
+		drawQingpu(ctx, homeX-600, homeY-400, '朱家角镇');
+		drawNonVisited(ctx, homeX-600, homeY-300, '练塘镇');
+		drawNonVisited(ctx, homeX-700, homeY-400, '金泽镇');
+
+		// 嘉定区
+		drawNonVisited(ctx, homeX-100, homeY-550, '江桥镇');
+		drawNonVisited(ctx, homeX-200, homeY-600, '黄渡镇');
+		drawNonVisited(ctx, homeX-300, homeY-600, '安亭镇');
+		drawNonVisited(ctx, homeX, homeY-550, '真新街道');
+		drawJiading(ctx, homeX-100, homeY-650, '南翔镇');
+		drawNonVisited(ctx, homeX-100, homeY-750, '马陆镇');
+		drawNonVisited(ctx, homeX-200, homeY-750, '新成路街道');
+		drawNonVisited(ctx, homeX-300, homeY-750, '嘉定镇街道');
+		drawNonVisited(ctx, homeX-400, homeY-750, '菊园新区');
+		drawNonVisited(ctx, homeX-500, homeY-750, '外冈镇');
+		drawNonVisited(ctx, homeX-150, homeY-850, '徐行镇');
+		drawNonVisited(ctx, homeX-150, homeY-950, '华亭镇');
+
+		// 浦东新区
+		drawPudong(ctx, homeX+800, homeY, '祝桥镇');
+		drawPudong(ctx, homeX+700, homeY, '川沙新镇');
+		drawNonVisited(ctx, homeX+800, homeY+100, '老港镇');
+		drawNonVisited(ctx, homeX+800, homeY+200, '书院镇');
+		drawNonVisited(ctx, homeX+800, homeY+300, '南汇新城镇');
+		drawNonVisited(ctx, homeX+700, homeY+100, '惠南镇');
+		drawNonVisited(ctx, homeX+700, homeY+200, '万祥镇');
+		drawNonVisited(ctx, homeX+700, homeY+300, '泥城镇');
+		drawNonVisited(ctx, homeX+600, homeY+200, '大团镇');
+		drawNonVisited(ctx, homeX+600, homeY+100, '宣桥镇');
+		drawNonVisited(ctx, homeX+500, homeY+100, '新场镇');
+		drawNonVisited(ctx, homeX+400, homeY+100, '航头镇');
+		drawNonVisited(ctx, homeX+500, homeY, '周浦镇');
+		drawNonVisited(ctx, homeX+500, homeY-100, '康桥镇');
+		drawNonVisited(ctx, homeX+400, homeY-100, '三林镇');
+		drawNonVisited(ctx, homeX+650, homeY-200, '张江镇');
+		drawNonVisited(ctx, homeX+750, homeY-200, '唐镇');
+		drawNonVisited(ctx, homeX+750, homeY-300, '曹路镇');
+		drawNonVisited(ctx, homeX+750, homeY-400, '高东镇');
+		drawNonVisited(ctx, homeX+650, homeY-400, '高行镇');
+		drawNonVisited(ctx, homeX+650, homeY-500, '高桥镇');
+		drawNonVisited(ctx, homeX+850, homeY-200, '合庆镇');
+		drawNonVisited(ctx, homeX+550, homeY-200, '北蔡镇');
+		drawNonVisited(ctx, homeX+650, homeY-300, '金桥镇');
+
+		// border
+		ctx.beginPath();
+		ctx.setLineDash([5, 10, 15]);
+		ctx.moveTo(0,800);
+		ctx.lineTo(300,800);
+		ctx.lineTo(400,700);
+		ctx.lineTo(600,700);
+		ctx.lineTo(600,750);
+		ctx.lineTo(700,750);
+		ctx.lineTo(700,1250);
+		ctx.lineTo(0,1250);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(700,1250);
+		ctx.lineTo(700,1450);
+		ctx.lineTo(825,1450);
+		ctx.lineTo(825,1750);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(700,750);
+		ctx.lineTo(700,550);
+		ctx.lineTo(600,500);
+		ctx.lineTo(600,500);
+		ctx.lineTo(0,500);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(700,575);
+		ctx.lineTo(1050,575);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(700,1125);
+		ctx.lineTo(1200,1125);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(1200,1750);
+		ctx.lineTo(1200,850);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(1050,800);
+		ctx.lineTo(1050,450);
+		ctx.lineTo(800,150);
+		ctx.lineTo(800,0);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(1050,450);
+		ctx.lineTo(1400,450);
+		ctx.stroke();
+	}
+}
+		</script>
+	</head>
+
+	<body onload="draw();">
+		<canvas id="map-canvas" width="1800" height="1750">current stock price: $3.15 + 0.15</canvas>
+		<p>Shanghai Township Map</p>
+	</body>
+</html>
